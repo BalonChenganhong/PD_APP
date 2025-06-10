@@ -1,5 +1,6 @@
 package com.example.pd
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -87,11 +88,32 @@ class LoginActivity : AppCompatActivity() {
                         tvResult.text = message
                         // 也可以根据 message 做进一步交互，比如登录成功后跳转到其他页面
                         if (message == "登录成功") {
-                            Toast.makeText(this@LoginActivity, "登录成功，可进行后续操作", Toast.LENGTH_SHORT).show()
-                            // 这里可添加登录成功后跳转逻辑，示例：
-                            // val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            // startActivity(intent)
-                            // finish()
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "欢迎登录！",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            // 跳转至 FoGDetectionActivity
+                            val intent = Intent(this@LoginActivity, FoGDetectionActivity::class.java)
+
+                            // 可选：传递登录用户信息（如用户名）到下个页面
+                            intent.putExtra("USERNAME", username)
+
+                            startActivity(intent)
+                            finish() // 关闭当前登录页面，防止返回后重复请求
+                        } else if (message == "用户名和密码不能为空") {
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "请填写完整的用户名和密码",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else if (message == "用户名或密码错误") {
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "认证失败，请检查账号密码",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 } catch (e: Exception) {

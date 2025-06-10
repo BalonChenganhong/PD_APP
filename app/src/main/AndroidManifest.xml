@@ -38,6 +38,12 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
+
+        <activity
+            android:name=".FoGDetectionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
