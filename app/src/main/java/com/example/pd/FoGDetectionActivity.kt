@@ -1,7 +1,9 @@
 package com.example.pd
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -16,9 +18,12 @@ class FoGDetectionActivity : AppCompatActivity() {
 
     private lateinit var btnRunPatient1: Button
     private lateinit var btnRunPatient2: Button
+    private lateinit var btnMoveVideo: Button
+    private lateinit var btnMoveChat: Button
     private lateinit var tvResultFog: TextView
     private val client = OkHttpClient()
     private val BASE_URL = "http://10.12.51.208:5000" // 你的电脑IP地址
+    private val TAG = "FoGDetectionActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +32,48 @@ class FoGDetectionActivity : AppCompatActivity() {
         // 初始化UI组件
         btnRunPatient1 = findViewById(R.id.btn_run_smv_1)
         btnRunPatient2 = findViewById(R.id.btn_run_smv_2)
+        btnMoveVideo = findViewById(R.id.btn_move_to_video)
+        btnMoveChat = findViewById(R.id.btn_move_to_chat)
         tvResultFog = findViewById(R.id.tv_result_fog)
+
         // 设置登录按钮点击事件
         btnRunPatient1.setOnClickListener {
             val patient_id = "1169".trim()
 
             // 执行登录请求
             fog(patient_id)
+        }
+        btnRunPatient2.setOnClickListener {
+            val patient_id = "1180".trim()
+
+            // 执行登录请求
+            fog(patient_id)
+        }
+        btnMoveVideo.setOnClickListener {
+            Log.d(TAG, "Button clicked, starting VideoDetectionActivity")
+
+            try {
+                val intent = Intent(this@FoGDetectionActivity, VideoDetectionActivity::class.java)
+                startActivity(intent)
+                finish() // 关闭当前页面
+            } catch (e: Exception) {
+                Log.e(TAG, "Error starting activity: ${e.message}", e)
+                // 显示错误信息
+                Toast.makeText(this, "无法启动视频检测页面: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+        btnMoveChat.setOnClickListener {
+            Log.d(TAG, "Button clicked, starting ChatActivity")
+
+            try {
+                val intent = Intent(this@FoGDetectionActivity, ChatActivity::class.java)
+                startActivity(intent)
+                finish() // 关闭当前页面
+            } catch (e: Exception) {
+                Log.e(TAG, "Error starting activity: ${e.message}", e)
+                // 显示错误信息
+                Toast.makeText(this, "无法启动视频检测页面: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
