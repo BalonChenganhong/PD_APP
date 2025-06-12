@@ -1,9 +1,9 @@
-### version 0.4  
+### version 0.5
 
-### date 2025.6.11  
+### date 2025.6.12
 
 
-# 新加功能：
+# 功能：
 ## LoginActivity:
 
 登录功能（username=user1；password=1）；登录成功后自动跳转到FoGDetectionActivity
@@ -20,3 +20,9 @@
 
 请求发送POST给LLM的API，返回LLM的回传信息
 
+
+# 新加功能
+
+## ChatActivity:
+
+按照量表的五个问题分别post患者主诉给服务器，由服务器调用API获取LLM评估分值
