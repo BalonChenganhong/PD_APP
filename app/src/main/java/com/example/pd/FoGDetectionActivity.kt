@@ -1,7 +1,10 @@
 package com.example.pd
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -16,9 +19,12 @@ class FoGDetectionActivity : AppCompatActivity() {
 
     private lateinit var btnRunPatient1: Button
     private lateinit var btnRunPatient2: Button
+    private lateinit var btnMoveVideo: Button
+    private lateinit var btnMoveChat: Button
     private lateinit var tvResultFog: TextView
     private val client = OkHttpClient()
     private val BASE_URL = "http://10.12.51.208:5000" // 你的电脑IP地址
+    private val TAG = "FoGDetectionActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +33,48 @@ class FoGDetectionActivity : AppCompatActivity() {
         // 初始化UI组件
         btnRunPatient1 = findViewById(R.id.btn_run_smv_1)
         btnRunPatient2 = findViewById(R.id.btn_run_smv_2)
+        btnMoveVideo = findViewById(R.id.btn_move_to_video)
+        btnMoveChat = findViewById(R.id.btn_move_to_chat)
         tvResultFog = findViewById(R.id.tv_result_fog)
+
         // 设置登录按钮点击事件
         btnRunPatient1.setOnClickListener {
             val patient_id = "1169".trim()
 
             // 执行登录请求
             fog(patient_id)
+        }
+        btnRunPatient2.setOnClickListener {
+            val patient_id = "1180".trim()
+
+            // 执行登录请求
+            fog(patient_id)
+        }
+        btnMoveVideo.setOnClickListener {
+            Log.d(TAG, "Button clicked, starting VideoDetectionActivity")
+
+            try {
+                val intent = Intent(this@FoGDetectionActivity, VideoDetectionActivity::class.java)
+                startActivity(intent)
+                finish() // 关闭当前页面
+            } catch (e: Exception) {
+                Log.e(TAG, "Error starting activity: ${e.message}", e)
+                // 显示错误信息
+                Toast.makeText(this, "无法启动视频检测页面: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+        btnMoveChat.setOnClickListener {
+            Log.d(TAG, "Button clicked, starting ChatActivity")
+
+            try {
+                val intent = Intent(this@FoGDetectionActivity, ChatActivity::class.java)
+                startActivity(intent)
+                finish() // 关闭当前页面
+            } catch (e: Exception) {
+                Log.e(TAG, "Error starting activity: ${e.message}", e)
+                // 显示错误信息
+                Toast.makeText(this, "无法启动视频检测页面: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -79,13 +120,21 @@ class FoGDetectionActivity : AppCompatActivity() {
                     // 获取统计信息
                     val stats = resultMap?.get("stats") as? Map<String, Any> ?: emptyMap()
                     val total = stats["total"] as? Double ?: 0.0
-                    val positiveCount = stats["positive_count"] as? Double ?: 0.0
+                    val positiveCount = stats["longest_fog"] as? Double ?: 0.0
+
+                    val sharedPref = getSharedPreferences("fog_result", Context.MODE_PRIVATE)
+                    with(sharedPref.edit()) {
+                        putInt("score_q1", 0)  // 假设 scoreQ1 是对应的变量
+                        putInt("score_q2", 0)
+                        putInt("score_q3", 0)
+                        putInt("score_q4", positiveCount.toInt())  // 已有的值
+                        putInt("score_q5", 0)
+                        putInt("score_q6", 0)
+                        apply()  // 异步提交
+                    }
 
                     // 格式化结果
-                    val resultText = "FoG 检测结果：\n" +
-                            "二进制预测：$binaryString\n" +
-                            "总预测数：${total.toInt()}\n" +
-                            "阳性预测数：${positiveCount.toInt()}\n"
+                    val resultText = "最长冻结步态时间：${positiveCount.toInt()}\n"
 
                     runOnUiThread {
                         tvResultFog.text = resultText

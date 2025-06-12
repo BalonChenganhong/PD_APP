@@ -18,6 +18,21 @@
         android:layout_height="wrap_content"
         android:text="RUN SMV ON PATIENT2"/>
 
+    <Button
+        android:id="@+id/btn_move_to_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:text="Move On to Video Detection"/>
+
+    <Button
+        android:id="@+id/btn_move_to_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:text="Move On to Chat"/>
+
+
     <TextView
         android:id="@+id/tv_result_fog"
         android:layout_width="match_parent"

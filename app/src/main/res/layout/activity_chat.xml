@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/et_request_q1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="在你状态最差的时候走路："
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btn_request_q1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Desperation to LLM"/>
+
+    <EditText
+        android:id="@+id/et_request_q2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="你的步态困难影响你的日常活动和独立做事吗？"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btn_request_q2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Desperation to LLM"/>
+
+    <EditText
+        android:id="@+id/et_request_q3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="你在行走时、转身或启动行走时有没有双脚黏住地面的感觉（冻结）？"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btn_request_q3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Desperation to LLM"/>
+
+    <EditText
+        android:id="@+id/et_request_q5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="你发生一次启动犹豫是多长时间（首步时冻结）？"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btn_request_q5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Desperation to LLM"/>
+
+    <EditText
+        android:id="@+id/et_request_q6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="你发生一次转身犹豫是多长时间（转身冻结）？"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btn_request_q6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Desperation to LLM"/>
+
+
+    <TextView
+        android:id="@+id/tv_result_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:textAlignment="center"/>
+
+</LinearLayout>
